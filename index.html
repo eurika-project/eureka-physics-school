@@ -141,7 +141,7 @@ let nextLessonNumber=1;for(const chapter of CHAPTERS){chapter[5]=nextLessonNumbe
 const ICONS=CHAPTERS.map(c=>c[2]);
 const COLORS=CHAPTERS.map(c=>c[3]);
 const CLASS_OPTIONS=['7 «А»','7 «Б»','7 «В»'];
-const TEACHER_CODE='UCHITEL2026';
+const TEACHER_CODE='server-side';
 const KEYS={users:'eureka_users_v1',session:'eureka_session_v1',results:'eureka_results_v2',surveys:'eureka_survey_v1',attempts:'eureka_attempts_v3',surveysV3:'eureka_survey_v3'};
 let state={view:'home',chapter:0,lesson:0,authMode:'login',authError:'',role:'student',tab:'results',surveyAnswers:{},surveyOpen:{},attempt:null,review:false,answers:{},started:0};
 const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -359,5 +359,6 @@ function goto(view,extra={}){state={...state,view,...extra};state.review=false;s
 function boot(){const existing=read(KEYS.attempts,null);if(!existing){const legacy=read(KEYS.results,{}),arr=[];for(const [source,list]of Object.entries(legacy))if(/^[pc]\d+$/.test(source))for(const a of list||[])if(a.email&&a.percent!==undefined)arr.push({...a,id:`legacy-${a.ts}-${Math.random()}`,source,chapterId:source.startsWith('p')?chapterOf(source):source.slice(1),answers:a.answers||[],total:a.total||0,correct:a.correct||0,wrong:a.wrong||0,role:a.role||'student'});write(KEYS.attempts,arr);}render();}
 boot();
 </script>
+<script src="/server-sync.js"></script>
 </body>
 </html>
