@@ -1,6 +1,6 @@
 databases:
   - name: eureka-db
-    plan: basic-256mb
+    plan: free
     databaseName: eureka
     user: eureka
 
@@ -8,9 +8,8 @@ services:
   - type: web
     name: eureka-physics-school
     runtime: docker
-    plan: starter
+    plan: free
     healthCheckPath: /health
-    preDeployCommand: npm run migrate
     envVars:
       - key: NODE_ENV
         value: production
@@ -21,8 +20,4 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: TEACHER_CODE
-        sync: false
-      - key: ADMIN_EMAIL
-        sync: false
-      - key: ADMIN_PASSWORD
         sync: false
